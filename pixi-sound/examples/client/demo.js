@@ -1,9 +1,9 @@
 var manifest = {
     roam1: "resources/loops/01-roam-00-closer-than-before.mp3",
-    loop2: "resources/loops/loop2.mp3",
-    loop3: "resources/loops/loop3.mp3",
-    loop4: "resources/loops/loop4.mp3",
-    bird: "resources/bird.mp3",
+    roam2: "resources/loops/02-mountain.mp3",
+    roam3: "resources/loops/03-four-legs-good-two-legs-bad.mp3",
+    roam4: "resources/loops/04-found.mp3",
+    roam5: "resources/loops/05-roam-epilogue.mp3",
     boing: "resources/boing.mp3",
     buzzer: "resources/buzzer.mp3",
     car: "resources/car.mp3",
@@ -68,17 +68,20 @@ function progressBar(button, progress) {
     bar.style.width = (progress * 100) + "%";
 }
 
+let independentVolume = document.querySelectorAll(".independent-volume");
+for (let i = 1; i <= independentVolume.length; i++ ){
+    document.querySelector(`#volume-roam${i}`).addEventListener("input", function() {
+        PIXI.sound.volume(`roam${i}`, Math.max(0,
+            Math.min(1, parseFloat(this.value))),
+        );
+    });
+}
 document.querySelector("#volume").addEventListener("input", function() {
     PIXI.sound.volumeAll = Math.max(0,
         Math.min(1, parseFloat(this.value)),
     );
 });
-document.querySelector("#volume-roam1").addEventListener("input", function() {
-    console.log("You are trying to change the volumue of roam1");
-    PIXI.sound.volume("roam1", Math.max(0,
-        Math.min(1, parseFloat(this.value))),
-    );
-});
+
 
 document.querySelector("#speed").addEventListener("input", function() {
     PIXI.sound.speedAll = Math.max(0,
